@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog de Isaias Duque</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      color: #f1f1f1;
+      background: #121212;
+      overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 20px;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Mini índice */
+    .index {
+      margin: 20px auto;
+      padding: 15px;
+      text-align: center;
+      background-color: #1d1d1d;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .index a {
+      margin: 0 10px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      color: #007BFF;
+      text-decoration: none;
+      border: 2px solid #007BFF;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .index a:hover {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    /* Content Cards */
+    .container {
+      padding: 30px;
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #2a2a72, #009ffd);
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+    .column-left {
+      flex: 1;
+      max-width: 40%;
+      text-align: center;
+      padding: 20px;
+    }
+    .column-left img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    .column-left img:hover {
+      transform: scale(1.05);
+    }
+    .column-right {
+      flex: 2;
+      max-width: 60%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .column-right h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #ffba08;
+    }
+    .legend {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #f9f9f9;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+      margin-top: 15px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #1d1d1d;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #e63946;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Bienvenido al Blog de Isaias Duque</h1>
+    <p>Explora contenidos increíbles sobre lo aprendido este semestre.</p>
+  </div>
+  <canvas id="background"></canvas>
+  <script>
+    // Fondo animado
+    const canvas = document.getElementById("background");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    const particles = Array.from({ length: 100 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      dx: (Math.random() - 0.5) * 2,
+      dy: (Math.random() - 0.5) * 2,
+      size: Math.random() * 3,
+    }));
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    animate();
+  </script>
+
+  <!-- Mini índice -->
+  <div class="index">
+    <a href="#section1">Mapa mental</a>
+    <a href="#section2">Windows y Linux</a>
+    <a href="#section3">La nube</a>
+  </div>
+
+  <!-- Content Sections -->
+  <div class="container">
+    <div class="row" id="section1">
+      <div class="column-left">
+        <img src="https://www.vitalcoachingbarcelona.com/wp-content/uploads/2015/04/mapa-mental-1-845x684.jpg" alt="Imagen del tema 1">
+      </div>
+      <div class="column-right">
+        <h2>Mapa mental</h2>
+        <p class="legend">Esto nos ayuda a reflexionar sobre tus fortalezas, debilidades, habilidades y conocimientos. Esto es esencial para el desarrollo personal y profesional.
+            Comunicación: Un mapa mental es una forma clara y concisa de presentar tu perfil a otros, como profesores, colegas o posibles empleadores. Les permite entender rápidamente quién eres y qué puedes aportar.
+ En la gestión archivística, la organización y la categorización son clave. Un mapa mental te ayuda a estructurar tu pensamiento de manera lógica y organizada, lo cual es fundamental en tu campo.
+ El proceso de crear un mapa mental estimula la creatividad. Te permite explorar nuevas ideas y conexiones que quizás no habías considerado antes.</p>
+        <a href="https://drive.google.com/file/d/1rEXr1DpkM034dYQsRm53VkJJhfn0CqY5/view" class="btn">clik para mirar mi trabajo</a>
+      </div>
+    </div>
+    <div class="row" id="section2">
+      <div class="column-left">
+        <img src="https://www.muylinux.com/wp-content/uploads/2020/09/Linux-Windows.jpg" alt="Imagen del tema 2">
+      </div>
+      <div class="column-right">
+        <h2>windows y linux</h2>
+        <p class="legend">en este tema conocimos las características y diferencias entre Windows y Linux, esto es fundamental por varias razones, especialmente en el ámbito deL desarrollo web y cualquier otro campo profesional relacionado con la tecnología.
+            entender las características y aplicaciones de Windows y Linux te proporciona una ventaja competitiva y te prepara para enfrentar diversos desafíos tecnológicos en tu carrera.
+            Existen contextos específicos en los que la elección entre Linux y Windows puede influir notablemente en la eficiencia y seguridad de los sistemas informáticos, lo que hace imprescindible una comparación más detallada con la que poder tomar la decisión más adecuada.
+            Para usuarios domésticos, Windows ofrece una experiencia más intuitiva con soporte extenso para juegos.</p>
+        <a href="https://drive.google.com/file/d/1CXm0DEx69qW3B61EEOGmlQieMA2mBMfO/view" class="btn">clik para mirar mi trabajo</a>
+      </div>
+    </div>
+    <div class="row" id="section3">
+      <div class="column-left">
+        <img src="https://imgcom.masterd.es/49/blog/2023/02/42521.jpeg" alt="Imagen del tema 3">
+      </div>
+      <div class="column-right">
+        <h2>la nube</h2>
+        <p class="legend">aqui hablamos sobre La nube que es fundamental en la era digital moderna, y entender cómo funciona puede ofrecerte varias ventajas tanto en el ámbito personal como profesional. 
+            la nube es una herramienta poderosa y versátil que puede mejorar significativamente la forma en que gestionamos y accedemos a la información. Conocer sus características y cómo funciona te da una ventaja competitiva y te prepara mejor para los desafíos tecnológicos del futuro.
+            Al disponer de recursos en la nube, las empresas pueden acelerar sus procesos y optimizar la calidad de sus resultados minimizando el papeleo y la carga de trabajo manual.
+            Todo esto conlleva a un imponente ahorro no solo de dinero, sino también de tiempo, lo que permite eficientizar la jornada de los profesionales, ya que pueden acceder a información relevante de forma rápida y práctica.</p>
+        <a href="https://drive.google.com/file/d/1ye68wElZPvrHdPDuA4TnnEjBKFckDOsM/view" class="btn">clik para mirar mi trabajo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2024 Blog de Isaias Duque.  
